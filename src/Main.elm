@@ -80,8 +80,8 @@ viewNewEntry currentDesc currentWedges currentFilled =
     div []
     [ h2 [] [ text "New Clock" ]
     , input [ placeholder "Description", value currentDesc, onInput (\s -> UpdateClock s currentWedges currentFilled) ] []
-    , input [ placeholder "Total Wedges", value currentWedges, onInput (\s -> UpdateClock currentDesc s currentFilled) ] []
-    , input [ placeholder "Currently Filled", value currentFilled, onInput (\s -> UpdateClock currentDesc currentWedges s) ] []
+    , input [ placeholder "Total Wedges", value currentWedges, onInput (\s -> UpdateClock currentDesc s currentFilled), type_ "number" ] []
+    , input [ placeholder "Currently Filled", value currentFilled, onInput (\s -> UpdateClock currentDesc currentWedges s), type_ "number" ] []
     , button [ onClick (AddClock currentDesc currentWedges currentFilled) ] [ text "Add" ]
     ]
 
