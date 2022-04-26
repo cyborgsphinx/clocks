@@ -21,10 +21,11 @@ type alias Model =
     , newClockDesc : String
     , newClockWedges : String
     , newClockFilled : String
+    , showNew : Bool
     }
 
 init : Model
-init = Model [] "" "" ""
+init = Model [] "" "" "" False
 
 type Msg
     = AddClock String String String
@@ -32,6 +33,8 @@ type Msg
     | IncrementClock String
     | DecrementClock String
     | RemoveClock String
+    | ShowNew
+    | CancelNew
 
 update : Msg -> Model -> Model
 update msg model =
@@ -39,7 +42,7 @@ update msg model =
         AddClock description wedges filled ->
             let intWedges = Maybe.withDefault 0 (String.toInt wedges)
                 intFilled = Maybe.withDefault 0 (String.toInt filled)
-            in { model | clocks = (Clock description intWedges intFilled)::model.clocks, newClockDesc = "", newClockWedges = "", newClockFilled = "" }
+            in { model | clocks = (Clock description intWedges intFilled)::model.clocks, newClockDesc = "", newClockWedges = "", newClockFilled = "", showNew = False }
         UpdateClock description wedges filled ->
             { model | newClockDesc = description, newClockWedges = wedges, newClockFilled = filled }
         IncrementClock description ->
@@ -48,6 +51,10 @@ update msg model =
             { model | clocks = decrement description model.clocks }
         RemoveClock description ->
             { model | clocks = List.filter (\clock -> clock.description /= description) model.clocks }
+        ShowNew ->
+            { model | showNew = True }
+        CancelNew ->
+            { model | newClockDesc = "", newClockWedges = "", newClockFilled = "", showNew = False }
 
 increment : String -> List Clock -> List Clock
 increment desc clocks =
@@ -71,7 +78,7 @@ view : Model -> Html Msg
 view model =
     div []
     [ h1 [] [ text "Progress Clocks" ]
-    , viewNewEntry model.newClockDesc model.newClockWedges model.newClockFilled
+    , if model.showNew then viewNewEntry model.newClockDesc model.newClockWedges model.newClockFilled else viewNewButton
     , viewClocks model.clocks
     ]
 
@@ -83,6 +90,13 @@ viewNewEntry currentDesc currentWedges currentFilled =
     , input [ placeholder "Total Wedges", value currentWedges, onInput (\s -> UpdateClock currentDesc s currentFilled), type_ "number" ] []
     , input [ placeholder "Currently Filled", value currentFilled, onInput (\s -> UpdateClock currentDesc currentWedges s), type_ "number" ] []
     , button [ onClick (AddClock currentDesc currentWedges currentFilled) ] [ text "Add" ]
+    , button [ onClick CancelNew ] [ text "Cancel" ]
+    ]
+
+viewNewButton : Html Msg
+viewNewButton =
+    div []
+    [ button [ onClick ShowNew ] [ text "New Clock" ]
     ]
 
 viewClocks : List Clock -> Html Msg
