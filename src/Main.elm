@@ -101,14 +101,12 @@ viewNewButton =
 
 viewClocks : List Clock -> Html Msg
 viewClocks clocks =
-    div []
-    ([ h2 [] [ text "Clocks" ]
-    ] ++ List.map viewClock clocks)
+    div [] <| List.map viewClock clocks
 
 viewClock : Clock -> Html Msg
 viewClock clock =
     div []
-    [ h3 [] [ text clock.description ]
+    [ h2 [] [ text clock.description ]
     , viewClockSvg clock.filled clock.wedges
     , button [ onClick (IncrementClock clock.description) ] [ text "Increment" ]
     , button [ onClick (DecrementClock clock.description) ] [ text "Decrement" ]

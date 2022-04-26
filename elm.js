@@ -5301,7 +5301,6 @@ var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $author$project$Main$DecrementClock = function (a) {
 	return {$: 'DecrementClock', a: a};
 };
@@ -5312,7 +5311,7 @@ var $author$project$Main$RemoveClock = function (a) {
 	return {$: 'RemoveClock', a: a};
 };
 var $elm$html$Html$button = _VirtualDom_node('button');
-var $elm$html$Html$h3 = _VirtualDom_node('h3');
+var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5417,7 +5416,7 @@ var $author$project$Main$viewClock = function (clock) {
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$h3,
+				$elm$html$Html$h2,
 				_List_Nil,
 				_List_fromArray(
 					[
@@ -5463,18 +5462,7 @@ var $author$project$Main$viewClocks = function (clocks) {
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
-		_Utils_ap(
-			_List_fromArray(
-				[
-					A2(
-					$elm$html$Html$h2,
-					_List_Nil,
-					_List_fromArray(
-						[
-							$elm$html$Html$text('Clocks')
-						]))
-				]),
-			A2($elm$core$List$map, $author$project$Main$viewClock, clocks)));
+		A2($elm$core$List$map, $author$project$Main$viewClock, clocks));
 };
 var $author$project$Main$ShowNew = {$: 'ShowNew'};
 var $author$project$Main$viewNewButton = A2(
